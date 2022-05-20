@@ -18,8 +18,11 @@ miceadds::source.all("./functions")
 set.seed(1)
 
 # parameters
+n_sim <- 2
 n_obs <- 200
 betas <- c(-0.5, -0.1, 0.1, 0.5)
+mis_mech = c("MCAR", "MAR")
+mis_prop = c(0.1, 0.25, 0.5)
 
 #################################
 ### TEST LOWER LEVEL FUCTIONS ###
@@ -41,19 +44,34 @@ MICE <- apply_MICE(amps[[1]])
 ### [YOUR FUNCTION HERE] ###
 
 # evaluate estimates
-ests <- rbind(CCA, MICE)
 
 ##################################
 ### TEST HIGHER LEVEL FUCTIONS ###
 ##################################
 
 amps <- create_data()
-ests <- 
+ests <- apply_methods(amps)
 
 ################################
 ### COMBINE INTO ONE FUCTION ###
 ################################
 
+simulate_once <- function(n_obs, betas, mis_mech, mis_prop) {
+  # generate incomplete data
+  amps <- create_data(
+    sample_size = n_obs,
+    effects = betas,
+    mechanisms = mis_mech,
+    proportions = mis_prop
+  )
+  # estimate regression coefficients
+  ests <- apply_methods(amps)
+  # output
+  return(ests)
+}
+
 ######################
 ### RUN SIMULATION ###
 ######################
+
+

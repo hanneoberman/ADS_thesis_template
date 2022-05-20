@@ -19,7 +19,7 @@ apply_CCA <- function(amp) {
 # MICE imputation
 apply_MICE <- function(amp) {
   # imputation with MICE
-  imp <- mice::mice(amp$amp, method = "norm")
+  imp <- mice::mice(amp$amp, method = "norm", printFlag = FALSE)
   # fit regression on each imputation
   est <- with(imp, lm(Y ~ X1 + X2 + X3 + X4)) %>% 
     # pool results
@@ -37,4 +37,16 @@ apply_MICE <- function(amp) {
 # Python imputation
 ### [YOUR FUNCTION HERE] ###
 
-
+# combine into one function
+apply_methods <- function(amps) {
+  # apply CCA to each incomplete dataset
+  CCA <- purrr::map_dfr(amps, ~{apply_CCA(.)})
+  # impute with MICE and estimate effects
+  MICE <-  purrr::map_dfr(amps, ~{apply_MICE(.)})
+  # impute with Python and estimate effects
+  ### [YOUR FUNCTION HERE] ###
+  # combine estimates 
+  ests <- rbind(CCA, MICE)
+  # output
+  return(ests)
+}
