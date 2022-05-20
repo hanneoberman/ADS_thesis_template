@@ -80,4 +80,19 @@ simulate_once <- function(n_obs, betas, mis_mech, mis_prop) {
 ### RUN SIMULATION ###
 ######################
 
+# repeat the simulation function n_sim times
+results_raw <- replicate(
+  n_sim, 
+  simulate_once(n_obs, betas, mis_mech, mis_prop),
+  simplify = FALSE
+  )
+# save raw results
+saveRDS(results_raw, "./Results/raw.RDS")
+
+########################
+### EVALUATE RESULTS ###
+########################
+
+# calculate bias, coverage rate and CI width
+### [YOUR FUNCTION HERE] ###
 
