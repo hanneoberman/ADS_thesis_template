@@ -1,5 +1,6 @@
 # simulation script for ADS thesis
 # original script by Hanne Oberman
+# use ctrl+shift+c to un-comment tests
 
 ########################
 ### SETUP SIMULATION ###
@@ -42,8 +43,6 @@ mis_prop = c(0.1, 0.25, 0.5)
 # 
 # # impute data with python
 # ### [YOUR FUNCTION HERE] ###
-# 
-# # evaluate estimates
 # 
 # ##################################
 # ### TEST HIGHER LEVEL FUCTIONS ###
