@@ -6,7 +6,7 @@ ampute_data <- function(
 ) {
   # create a list of amputed data objects 
   # for each of the mechanisms and proportions
-  amp <- purrr::map(mis_mech, function(mm) {
+  amps <- purrr::map(mis_mech, function(mm) {
     purrr::map(mis_prop, function(mp) {
       # ampute the data
       mice::ampute(dat, mech = mm, prop = mp) 
@@ -16,5 +16,5 @@ ampute_data <- function(
     # are not nested within the meachnisms
     unlist(recursive = FALSE)
   # output
-  return(amp)
+  return(amps)
 }
