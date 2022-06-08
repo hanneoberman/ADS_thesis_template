@@ -94,4 +94,21 @@ saveRDS(results_raw, "./Results/raw.RDS")
 
 # calculate bias, coverage rate and CI width
 ### [YOUR FUNCTION HERE] ###
+performance <- evaluate_est(results_raw)
+
+# simulation results across all conditions
+performance %>% 
+  group_by(method) %>% 
+  summarise(across(c(bias, cov, ciw), mean))
+
+# simulation results split by condition
+performance %>% 
+  group_by(method, mech, prop) %>% 
+  summarise(across(c(bias, cov, ciw), mean))
+
+# simulation results split by condition and regression coefficient
+performance %>% 
+  group_by(method, mech, prop, term) %>% 
+  summarise(across(c(bias, cov, ciw), mean))
+
 

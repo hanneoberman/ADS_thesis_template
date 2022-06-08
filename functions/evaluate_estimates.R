@@ -2,7 +2,7 @@
 ### [YOUR FUNCTION HERE] ###
 
 evaluate_est <- function(results) {
-  performance <- purrr::map(results, ~{
+  performance <- purrr::map_dfr(results, ~{
     mutate(.x,
       bias = truth - estimate,
       cov = conf.low <= truth & conf.high >= truth,
@@ -10,4 +10,5 @@ evaluate_est <- function(results) {
       .keep = "unused"
         )
   })
+  return(performance)
 }
