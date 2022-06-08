@@ -49,7 +49,7 @@ mis_prop = c(0.1, 0.25, 0.5)
 # ##################################
 # 
 # amps <- create_data()
-# ests <- apply_methods(amps)
+# ests <- apply_methods(amps, betas)
 
 ################################
 ### COMBINE INTO ONE FUCTION ###
@@ -64,7 +64,7 @@ simulate_once <- function(n_obs, betas, mis_mech, mis_prop) {
     proportions = mis_prop
   )
   # estimate regression coefficients
-  ests <- apply_methods(amps)
+  ests <- apply_methods(amps, betas)
   # output
   return(ests)
 }

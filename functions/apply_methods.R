@@ -38,7 +38,7 @@ apply_MICE <- function(amp) {
 ### [YOUR FUNCTION HERE] ###
 
 # combine into one function
-apply_methods <- function(amps) {
+apply_methods <- function(amps, betas) {
   # apply CCA to each incomplete dataset
   CCA <- purrr::map_dfr(amps, ~{apply_CCA(.)})
   # impute with MICE and estimate effects
@@ -46,7 +46,8 @@ apply_methods <- function(amps) {
   # impute with Python and estimate effects
   ### [YOUR FUNCTION HERE] ###
   # combine estimates 
-  ests <- rbind(CCA, MICE)
+  ests <- rbind(CCA, MICE) %>% 
+    cbind(truth = c(0, betas))
   # output
   return(ests)
 }
