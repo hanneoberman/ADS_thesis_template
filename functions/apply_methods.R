@@ -34,7 +34,7 @@ apply_MICE <- function(amp) {
   return(est)
 }
 
-# Python imputation
+# New imputation method
 ### [YOUR FUNCTION HERE] ###
 
 # combine into one function

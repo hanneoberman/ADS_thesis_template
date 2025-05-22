@@ -11,9 +11,14 @@ library(dplyr)
 library(mvtnorm)
 library(mice)
 library(miceadds)
+library(purrr)
+library(furrr)
 
 # functions
 miceadds::source.all("./functions")
+
+# initialize parallel processing
+plan(multisession, workers = 2)
 
 # randomness
 set.seed(1)
@@ -41,7 +46,7 @@ mis_prop = c(0.1, 0.25, 0.5)
 # # impute data with MICE
 # MICE <- apply_MICE(amps[[1]])
 # 
-# # impute data with python
+# # impute data with new method
 # ### [YOUR FUNCTION HERE] ###
 # 
 # ##################################
@@ -97,18 +102,18 @@ saveRDS(results_raw, "./Results/raw.RDS")
 performance <- evaluate_est(results_raw)
 
 # simulation results across all conditions
-performance %>% 
-  group_by(method) %>% 
+performance |> 
+  group_by(method) |> 
   summarise(across(c(bias, cov, ciw), mean))
 
 # simulation results split by condition
-performance %>% 
-  group_by(method, mech, prop) %>% 
+performance |> 
+  group_by(method, mech, prop) |>
   summarise(across(c(bias, cov, ciw), mean))
 
 # simulation results split by condition and regression coefficient
-performance %>% 
-  group_by(method, mech, prop, term) %>% 
+performance |> 
+  group_by(method, mech, prop, term) |>
   summarise(across(c(bias, cov, ciw), mean))
 
 
